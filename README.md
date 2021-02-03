@@ -1,0 +1,1 @@
+plaform-config-vsphere
