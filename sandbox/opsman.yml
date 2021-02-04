@@ -7,7 +7,7 @@ opsman-configuration:
       folder: /Datacenter/vm/
       url: vcsa-01.haas-235.pez.pivotal.io
       username: Administrator@vsphere.local
-      password: ((vcenter)password))
+      password: ((vcenter_password))
       resource_pool: /Datacenter/host/Cluster/Resources/pas-az1
       insecure: 1
 
