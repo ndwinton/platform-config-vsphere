@@ -1,0 +1,23 @@
+---
+opsman-configuration:
+  vsphere:
+    vcenter:
+      datacenter: Datacenter
+      datastore: LUN01
+      folder: /Datacenter/vm/
+      url: vcsa-01.haas-235.pez.pivotal.io
+      username: Administrator@vsphere.local
+      password: ((vcenter)password))
+      resource_pool: /Datacenter/host/Cluster/Resources/pas-az1
+      insecure: 1
+
+    disk_type: thin
+    dns: 10.192.2.10
+    gateway: 192.168.1.1
+    hostname: ops-manager.sandbox.haas-235.pez.pivotal.io
+    netmask: 255.255.255.0
+    network: PAS-Infrastructure
+    ntp: ntp1.svc.pivotal.io
+    private_ip: 192.168.1.10
+    ssh_public_key: ((opsman_ssh_key.public_key))
+    vm_name: sandbox-opsman
