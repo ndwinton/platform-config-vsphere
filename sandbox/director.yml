@@ -1,0 +1,163 @@
+az-configuration:
+- name: AZ1
+  iaas_configuration_name: default
+  clusters:
+  - cluster: Cluster
+    drs_rule: MUST
+    host_group: null
+    resource_pool: pas-az1
+- name: AZ2
+  iaas_configuration_name: default
+  clusters:
+  - cluster: Cluster
+    drs_rule: MUST
+    host_group: null
+    resource_pool: pas-az2
+- name: AZ3
+  iaas_configuration_name: default
+  clusters:
+  - cluster: Cluster
+    drs_rule: MUST
+    host_group: null
+    resource_pool: pas-az3
+iaas-configurations:
+- additional_cloud_properties: {}
+  bosh_disk_path: pcf_disk
+  bosh_template_folder: pcf_templates
+  bosh_vm_folder: pcf_vms
+  datacenter: Datacenter
+  disk_type: thin
+  ephemeral_datastores_string: LUN01
+  name: default
+  nsx_address: nsxmgr-01.haas-235.pez.pivotal.io
+  nsx_ca_certificate: ((nsx_ca_cert.certificate))
+  nsx_mode: nsx-t
+  nsx_networking_enabled: true
+  nsx_password: ((nsx_password))
+  nsx_t_auth_type: local_user
+  nsx_username: admin
+  persistent_datastores_string: LUN01
+  ssl_verification_enabled: false
+  vcenter_host: vcsa-01.haas-235.pez.pivotal.io
+  vcenter_password: ((vcenter_password))
+  vcenter_username: Administrator@vsphere.local
+network-assignment:
+  network:
+    name: infrastructure
+  other_availability_zones: []
+  singleton_availability_zone:
+    name: AZ1
+networks-configuration:
+  icmp_checks_enabled: false
+  networks:
+  - name: infrastructure
+    subnets:
+    - iaas_identifier: PAS-Infrastructure
+      cidr: 192.168.1.0/24
+      dns: 10.192.2.10,10.192.2.11
+      gateway: 192.168.1.1
+      reserved_ip_ranges: 192.168.1.1-192.168.1.10
+      availability_zone_names:
+      - AZ1
+      - AZ2
+      - AZ3
+  - name: pas
+    subnets:
+    - iaas_identifier: PAS-Deployment
+      cidr: 192.168.2.0/24
+      dns: 10.192.2.10,10.192.2.11
+      gateway: 192.168.2.1
+      reserved_ip_ranges: ""
+      availability_zone_names:
+      - AZ1
+      - AZ2
+      - AZ3
+  - name: services
+    subnets:
+    - iaas_identifier: PAS-Services
+      cidr: 192.168.3.0/24
+      dns: 10.192.2.10,10.192.2.11
+      gateway: 192.168.3.1
+      reserved_ip_ranges: ""
+      availability_zone_names:
+      - AZ1
+      - AZ2
+      - AZ3
+properties-configuration:
+  director_configuration:
+    blobstore_type: local
+    bosh_director_recreate_on_next_deploy: false
+    bosh_recreate_on_next_deploy: false
+    bosh_recreate_persistent_disks_on_next_deploy: false
+    database_type: internal
+    director_metrics_server_enabled: true
+    director_worker_count: 5
+    encryption:
+      keys: []
+      providers: []
+    hm_emailer_options:
+      enabled: false
+    hm_pager_duty_options:
+      enabled: false
+    identification_tags: {}
+    job_configuration_on_tmpfs: false
+    keep_unreachable_vms: false
+    local_blobstore_options:
+      enable_signed_urls: true
+    metrics_server_enabled: true
+    ntp_servers_string: ntp1.svc.pivotal.io
+    post_deploy_enabled: false
+    resurrector_enabled: true
+    retry_bosh_deploys: false
+    skip_director_drain: false
+    system_metrics_runtime_enabled: true
+  dns_configuration:
+    excluded_recursors: []
+    handlers: []
+  security_configuration:
+    generate_vm_passwords: true
+    opsmanager_root_ca_trusted_certs: true
+    trusted_certificates: ((my_ca.certificate))
+  syslog_configuration:
+    enabled: false
+resource-configuration:
+  compilation:
+    additional_networks: []
+    additional_vm_extensions: []
+    instance_type:
+      id: automatic
+    instances: automatic
+    nsx:
+      lbs: []
+      security_groups: []
+    nsxt:
+      lb:
+        server_pools: []
+      ns_groups: []
+    swap_as_percent_of_memory_size: automatic
+  director:
+    additional_networks: []
+    additional_vm_extensions: []
+    instance_type:
+      id: automatic
+    instances: automatic
+    nsx:
+      lbs: []
+      security_groups: []
+    nsxt:
+      lb:
+        server_pools: []
+      ns_groups: []
+    persistent_disk:
+      size_mb: automatic
+    swap_as_percent_of_memory_size: automatic
+vmextensions-configuration:
+- name: router-extension
+  cloud_properties:
+    nsxt:
+      lb:
+        server_pools:
+        - name: PAS-GoRouter443ServerPool
+          port: 443
+vmtypes-configuration: {}
+
