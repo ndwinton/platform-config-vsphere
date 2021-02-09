@@ -361,7 +361,7 @@ product-properties:
     value: {}
 network-properties:
   network:
-    name: PAS-Deployment
+    name: pas
   other_availability_zones:
   - name: AZ3
   - name: AZ2
