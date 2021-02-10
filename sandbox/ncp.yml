@@ -36,7 +36,7 @@ product-properties:
     value:
       secret: ((nsx_password))
   .properties.nsx_auth.simple.nsx_api_user:
-    value: Administrator@vsphere.local
+    value: admin
   .properties.nsx_node_agent_debug_log:
     value: false
   .properties.subnet_prefix:
